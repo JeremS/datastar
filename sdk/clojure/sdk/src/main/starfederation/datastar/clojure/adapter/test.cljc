@@ -46,9 +46,10 @@
 
   (sse-gen? [_] true)
 
-  Closeable
-  (close [this]
-    (p/close-sse! this)))
+  #?@(:bb  []
+      :clj [Closeable
+            (close [this]
+              (p/close-sse! this))]))
 
 
 (defn ->sse-response

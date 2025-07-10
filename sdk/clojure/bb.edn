@@ -1,4 +1,12 @@
-{:paths ["src/main" "src/bb"]
+{:paths ["src/main"
+         "src/bb"
+         "sdk/src/main"
+         "sdk-adapter-http-kit/src/main/"
+         "sdk-malli-schemas/src/main"
+         "./src/test/core-sdk"
+         "./src/test/malli-schemas"]
+ :deps {io.github.noahtheduke/lazytest {:mvn/version "1.8.0"}
+        metosin/malli                  {:mvn/version "0.17.0"}}
  :tasks
  {:requires ([tasks :as t])
 
@@ -39,6 +47,9 @@
                         [:test.paths/core-sdk
                          :test.paths/adapter-ring
                          :test.paths/adapter-rj9a])
+  
+  test:bb (t/bb-lazytest [:test.paths/core-sdk
+                          :test.paths/malli-schemas])
 
   jar:sdk {:doc  "Build jar for the common sdk"
            :task (t/lib-jar! t/sdk-dir)}

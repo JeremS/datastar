@@ -53,8 +53,8 @@
 (def all-aliases (delay (deps-aliases)))
 
 
-(defn named-paths->dirs [as]
-  (->> as
+(defn named-paths->dirs [named-paths]
+  (->> named-paths
        (mapcat #(get @all-aliases %))
        (map #(str "-d " %))))
 
@@ -72,6 +72,24 @@
     (lazytest-invocation (into [:test] aliases)
                          paths-aliases
                          args)))
+
+
+(defn bb-lazytest-invocation [named-paths]
+  (string/join " "
+    (concat
+      ["/tmp/bb -m lazytest.main"]
+      (named-paths->dirs named-paths))))
+
+
+(bb-lazytest-invocation [:test.paths/core-sdk :test.paths/malli-schemas])
+
+
+(defn bb-lazytest [named-paths]
+  (-> named-paths
+      bb-lazytest-invocation
+      t/shell))
+
+
 
 
 ;; -----------------------------------------------------------------------------
