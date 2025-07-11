@@ -77,11 +77,8 @@
 (defn bb-lazytest-invocation [named-paths]
   (string/join " "
     (concat
-      ["/tmp/bb -m lazytest.main"]
+      ["./dev-bb/bb -m lazytest.main"]
       (named-paths->dirs named-paths))))
-
-
-(bb-lazytest-invocation [:test.paths/core-sdk :test.paths/malli-schemas])
 
 
 (defn bb-lazytest [named-paths]

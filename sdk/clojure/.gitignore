@@ -10,3 +10,4 @@ test-resources/test.config.edn
 /.nfnl.fnl
 /.nvim.fnl
 /.nvim.lua
+dev-bb
